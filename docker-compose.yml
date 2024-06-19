@@ -4,8 +4,29 @@ services:
     image: luizc/recargaalgar
     ports:
       - "8080:8080"
+    depends_on:
+      - rabbitmq
+      - db
 
   messaging:
     image: luizc/messaging
     ports:
-      - "5672:5672"  # Esta porta é apenas um exemplo, ajuste conforme a configuração do seu serviço de mensageria
+      - "5672:5672"
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+  db:
+    image: oscarfonts/h2
+    ports:
+      - "8082:8082"
+    environment:
+      H2_OPTIONS: "-ifNotExists"
