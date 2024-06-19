@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  api:
+    image: luizc/recargaalgar
+    ports:
+      - "8080:8080"
+
+  messaging:
+    image: luizc/messaging
+    ports:
+      - "5672:5672"  # Esta porta é apenas um exemplo, ajuste conforme a configuração do seu serviço de mensageria
